@@ -4,6 +4,8 @@ import functions
 
 todos = functions.get_todos()
 
+st.set_page_config(layout="wide") # this increases the size of the webpage
+
 
 def add_todo():
     todo = st.session_state["new_todo"]  # "new_todo" is a key for the text_input below
@@ -15,7 +17,11 @@ def add_todo():
 
 st.title("My To-Do App")
 st.subheader("This is my to-do app")
-st.write("This app gives me joy as a new programmer")
+st.write("This app gives me joy as a new <b>programmer</b>",
+         unsafe_allow_html=True) #The unsafe_allow_html=True tells dtremlit to allow html format
+
+# Input for adding new todos with a button
+st.text_input(label="", placeholder="Add a new todo", key='new_todo', on_change=add_todo)
 
 # Loop through todos and assign a unique key to each checkbox using index
 for index, todo in enumerate(todos):
@@ -26,7 +32,5 @@ for index, todo in enumerate(todos):
         del st.session_state["new_todo"]
         st.rerun()
 
-# Input for adding new todos with a button
-st.text_input(label="", placeholder="Add a new todo", key='new_todo', on_change=add_todo)
 
 # st.session_state  # For debugging purposes (you can remove this later)
